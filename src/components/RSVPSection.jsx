@@ -4,7 +4,7 @@ import { Heart, Calendar, Phone } from 'lucide-react'
 
 const RSVPSection = () => {
   const handleWhatsApp = () => {
-    window.open(`https://wa.me/919999999999?text=Hello! I'm honored to attend the wedding of Priya & Arjun. #PriyaWedArjun`, '_blank')
+    window.open(`https://wa.me/919304637399?text=Hello! I'm honored to attend the wedding of Priya & Arjun. #PriyaWedArjun`, '_blank')
   }
 
   return (
