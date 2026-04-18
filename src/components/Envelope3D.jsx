@@ -224,7 +224,7 @@ const Envelope3D = ({ onOpen }) => {
             }}
           />
 
-          {/* ── WAX SEAL — perfectly centered ── */}
+          {/* ── WAX SEAL — perfectly centered FIXED ── */}
           <motion.div
             animate={
               phase === 'wax'
@@ -236,22 +236,30 @@ const Envelope3D = ({ onOpen }) => {
             transition={{ duration: 0.55 }}
             style={{
               position: 'absolute',
-              top: '50%', left: '50%',
+              top: '50%',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
               zIndex: 8,
-              width: 76, height: 76,
-              marginTop: 0, marginLeft: 0,
+              width: 76,
+              height: 76,
+              margin: 0,
+              padding: 0,
             }}
           >
             <div style={{
-              width: 76, height: 76, borderRadius: '50%',
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
               background: 'radial-gradient(circle at 38% 35%, #d4c5a9, #b8a882 40%, #9e8f6a 75%, #7a6e50)',
               boxShadow: '0 4px 14px rgba(0,0,0,0.28), inset 0 1px 3px rgba(255,255,255,0.4)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
               <span style={{
                 fontFamily: "'Pinyon Script', cursive",
-                fontSize: 17, color: '#5a4e35',
+                fontSize: 17,
+                color: '#5a4e35',
                 textShadow: '0 1px 1px rgba(255,255,255,0.3)',
                 letterSpacing: 1,
                 userSelect: 'none',
@@ -259,18 +267,20 @@ const Envelope3D = ({ onOpen }) => {
             </div>
           </motion.div>
 
-          {/* ── TAGLINE — centered below seal ── */}
+          {/* ── TAGLINE — centered below seal FIXED ── */}
           <motion.p
             animate={phase !== 'idle' ? { opacity: 0, y: -8 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
             style={{
               position: 'absolute',
               bottom: '18%',
-              left: 0, right: 0,          // full width
-              textAlign: 'center',         // centered text
+              left: 0,
+              right: 0,
+              textAlign: 'center',
               zIndex: 7,
               fontFamily: "'Lato', sans-serif",
-              fontWeight: 300, fontSize: 12,
+              fontWeight: 300,
+              fontSize: 12,
               color: 'rgba(255,255,255,0.72)',
               lineHeight: 1.8,
               letterSpacing: '0.5px',
@@ -278,10 +288,10 @@ const Envelope3D = ({ onOpen }) => {
               margin: 0,
             }}
           >
-            Esta invitación es<br />exclusiva para ti
+            Welcome to our<br />Wedding Invitation
           </motion.p>
 
-          {/* ── OPEN BUTTON — centered ── */}
+          {/* ── OPEN BUTTON — perfectly centered bottom FIXED ── */}
           <AnimatePresence>
             {phase === 'idle' && (
               <motion.button
@@ -294,18 +304,20 @@ const Envelope3D = ({ onOpen }) => {
                   position: 'absolute',
                   bottom: '6%',
                   left: '50%',
-                  transform: 'translateX(-50%)',  // true centering
+                  transform: 'translateX(-50%)',
                   zIndex: 9,
                   background: 'rgba(255,255,255,0.13)',
                   border: '1px solid rgba(255,255,255,0.42)',
                   color: '#fff',
                   fontFamily: "'Lato', sans-serif",
-                  fontSize: 10, fontWeight: 400,
+                  fontSize: 10,
+                  fontWeight: 400,
                   letterSpacing: '2.5px',
                   padding: '10px 30px',
                   borderRadius: 2,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  backdropFilter: 'blur(4px)',
                 }}
               >
                 OPEN INVITATION
@@ -323,48 +335,71 @@ const Envelope3D = ({ onOpen }) => {
                 transition={{ duration: 0.7, ease: 'easeOut' }}
                 style={{
                   position: 'absolute',
-                  top: '8%', left: '7%', right: '7%', bottom: '6%',
+                  top: '8%',
+                  left: '7%',
+                  right: '7%',
+                  bottom: '6%',
                   background: 'linear-gradient(160deg, #fdf8f0, #faf0e6)',
-                  borderRadius: 6, zIndex: 7,
-                  display: 'flex', flexDirection: 'column',
-                  alignItems: 'center', justifyContent: 'center',
+                  borderRadius: 6,
+                  zIndex: 7,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   boxShadow: '0 8px 30px rgba(0,0,0,0.14)',
-                  padding: '20px 16px', textAlign: 'center',
+                  padding: '20px 16px',
+                  textAlign: 'center',
                 }}
               >
                 <p style={{
-                  fontFamily: "'Lato', sans-serif", fontWeight: 300,
-                  fontSize: 11, color: '#a08060',
-                  letterSpacing: 2, marginBottom: 14,
+                  fontFamily: "'Lato', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 11,
+                  color: '#a08060',
+                  letterSpacing: 2,
+                  marginBottom: 14,
                   textTransform: 'uppercase',
                 }}>Together with their families</p>
 
                 <h1 style={{
                   fontFamily: "'Pinyon Script', cursive",
-                  fontSize: 44, color: '#6b5a3e', margin: 0, lineHeight: 1.1,
+                  fontSize: 44,
+                  color: '#6b5a3e',
+                  margin: 0,
+                  lineHeight: 1.1,
                 }}>Priya</h1>
 
                 <p style={{
-                  fontFamily: "'Lato', sans-serif", fontWeight: 300,
-                  fontSize: 18, color: '#a08060',
-                  margin: '6px 0', letterSpacing: 4,
+                  fontFamily: "'Lato', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 18,
+                  color: '#a08060',
+                  margin: '6px 0',
+                  letterSpacing: 4,
                 }}>&amp;</p>
 
                 <h1 style={{
                   fontFamily: "'Pinyon Script', cursive",
-                  fontSize: 44, color: '#6b5a3e', margin: 0, lineHeight: 1.1,
+                  fontSize: 44,
+                  color: '#6b5a3e',
+                  margin: 0,
+                  lineHeight: 1.1,
                 }}>Arjun</h1>
 
                 <div style={{
-                  width: 50, height: 1,
+                  width: 50,
+                  height: 1,
                   background: 'rgba(160,128,96,0.35)',
                   margin: '14px auto',
                 }} />
 
                 <p style={{
-                  fontFamily: "'Lato', sans-serif", fontWeight: 300,
-                  fontSize: 10, color: '#a08060',
-                  letterSpacing: 2, lineHeight: 1.8,
+                  fontFamily: "'Lato', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 10,
+                  color: '#a08060',
+                  letterSpacing: 2,
+                  lineHeight: 1.8,
                 }}>REQUEST THE PLEASURE<br />OF YOUR COMPANY</p>
               </motion.div>
             )}
