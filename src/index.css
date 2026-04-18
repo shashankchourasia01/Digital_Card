@@ -74,3 +74,9 @@ body {
   background: linear-gradient(135deg, #f43f5e, #ec4899);
   border-radius: 10px;
 }
+
+/* Add to index.css */
+@keyframes scrollDot {
+  0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.3; transform: translateX(-50%) translateY(8px); }
+}
