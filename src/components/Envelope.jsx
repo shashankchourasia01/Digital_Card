@@ -19,29 +19,47 @@ const Envelope = ({ onOpen }) => {
     }, 800)
   }
 
-  if (showVideo) {
-    return (
-      <motion.div 
-        className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+  // Envelope.jsx mein showVideo wala return yeh replace karo
+
+if (showVideo) {
+  return (
+    <motion.div 
+      className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* OPTION A: Inline video tag */}
+      <video 
+        autoPlay 
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+        onEnded={() => onOpen()}
+        onError={(e) => {
+          console.log("Video error:", e)
+          onOpen() // Error pe bhi open ho jaye
+        }}
       >
-        <video 
-          autoPlay 
-          muted={false}
-          className="w-full h-full object-cover"
-          onEnded={() => onOpen()}
-        >
-          {/* Video ko public/videos/pre-wedding.mp4 mein rakhna */}
-          <source src="/videos/pre-wedding.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute bottom-10 left-0 right-0 text-center text-white/70 text-sm">
-          ❤️ Our Beautiful Journey ❤️
-        </div>
-      </motion.div>
-    )
-  }
+        <source src="/public/videos/pre-wedding.mp4.mp4" type="video/mp4" />
+        Your browser doesn't support video.
+      </video>
+      
+      {/* OPTION B: YouTube video (agar local video nahi hai) */}
+      {/* <iframe 
+        className="w-full h-full"
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
+        title="Pre Wedding"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      /> */}
+      
+      <div className="absolute bottom-10 left-0 right-0 text-center text-white/70 text-sm">
+        ❤️ Our Beautiful Journey ❤️
+      </div>
+    </motion.div>
+  )
+}
 
   return (
     <motion.div 
