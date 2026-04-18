@@ -226,7 +226,7 @@ export const CoupleSection = () => (
             <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: '#0a0506' }} />
           </motion.div>
           <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&face"
+            src="https://images.unsplash.com/photo-1600685890506-593fdf55949b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Bride"
             style={{
               position: 'absolute', inset: 5,
@@ -287,7 +287,7 @@ export const CoupleSection = () => (
             <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: '#0a0506' }} />
           </motion.div>
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&face"
+            src="https://media.istockphoto.com/id/2200870595/photo/happy-groom-greeting-in-prayer-pose-at-wedding-ceremony.jpg?s=2048x2048&w=is&k=20&c=orWo9ytOf8WlAU_S889vAUznE6_6xfMr7UKlXER5ST0="
             alt="Groom"
             style={{
               position: 'absolute', inset: 5,
