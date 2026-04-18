@@ -289,19 +289,7 @@ const VideoSection = ({ onComplete }) => {
       </AnimatePresence>
 
       {/* ── SCROLL HINT (bottom center) ── */}
-      <motion.div
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-        style={{
-          position: 'absolute', bottom: 60, left: 0, right: 0,
-          textAlign: 'center', zIndex: 10,
-          color: 'rgba(255,255,255,0.45)',
-          fontSize: 11, letterSpacing: 2,
-          fontFamily: "'Lato', sans-serif",
-        }}
-      >
-        scroll to explore  ↓
-      </motion.div>
+      
 
     </motion.section>
   )
