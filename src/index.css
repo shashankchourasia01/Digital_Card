@@ -1,0 +1,105 @@
+/* src/index.css */
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Lato:wght@300;400;700;900&display=swap');
+
+@theme {
+  --font-lato: "Lato", sans-serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  
+  --color-rose-50: #fff1f2;
+  --color-rose-100: #ffe4e6;
+  --color-rose-200: #fecdd3;
+  --color-rose-300: #fda4af;
+  --color-rose-400: #fb7185;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+  --color-rose-700: #be123c;
+  
+  --color-pink-300: #f9a8d4;
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 20s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-30px) translateX(20px); }
+  66% { transform: translateY(20px) translateX(-15px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flutter {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(10deg) scale(1.1); }
+  75% { transform: rotate(-10deg) scale(0.9); }
+}
+
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-lato); overflow-x: hidden; background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); }
+  html { scroll-behavior: smooth; }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+  
+  .rose-text {
+    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #f43f5e 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .btn-rose {
+    background: linear-gradient(135deg, #f43f5e, #ec4899);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-rose:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.4);
+  }
+}
+
+@layer utilities {
+  .snap-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    scroll-behavior: smooth;
+  }
+  
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+  }
+  
+  .animate-flutter {
+    animation: flutter 3s ease-in-out infinite;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #ffe4e6; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #f43f5e, #ec4899); border-radius: 10px; }
