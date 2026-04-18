@@ -34,7 +34,7 @@ const VideoSection = ({ onComplete }) => {
         onError={onComplete}
       >
         {/* Option 1: Local video - public/video.mp4 mein rakhna */}
-        <source src="/public/videos/pre-wedding.mp4.mp4" type="video/mp4" />
+        <source src="/public/videos/pre-wedding.mp4" type="video/mp4" />
         
         {/* Option 2: Sample video (for testing) */}
         <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-are-having-fun-32908-large.mp4" type="video/mp4" />
