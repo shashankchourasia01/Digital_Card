@@ -16,15 +16,15 @@ const Envelope3D = ({ onOpen }) => {
   return (
     <>
       <link
-        href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lato:wght@300;400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lato:wght@300;400;500;600&display=swap"
         rel="stylesheet"
       />
 
-      {/* Full screen sage green background */}
+      {/* Full screen background - Match with Sections theme (Dark Rose/Red) */}
       <div style={{
         width: '100vw',
         height: '100vh',
-        background: '#8fa89a',
+        background: 'radial-gradient(circle at 30% 20%, #1a0a0e, #0d0508)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -33,11 +33,35 @@ const Envelope3D = ({ onOpen }) => {
         overflow: 'hidden',
       }}>
 
-        {/* Subtle radial overlay */}
+        {/* Subtle rose-tinted overlay */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.05), transparent 60%)',
+          background: 'radial-gradient(ellipse at 40% 30%, rgba(244,63,94,0.08), transparent 70%)',
         }} />
+
+        {/* Animated floating particles (rose petals effect) */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          overflow: 'hidden',
+        }}>
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${4 + Math.random() * 8}px`,
+                height: `${6 + Math.random() * 12}px`,
+                background: `rgba(244,63,94,${0.1 + Math.random() * 0.2})`,
+                borderRadius: '50%',
+                filter: 'blur(2px)',
+                animation: `floatPetals ${8 + Math.random() * 12}s linear infinite`,
+                opacity: 0.3,
+              }}
+            />
+          ))}
+        </div>
 
         {/* Envelope wrapper — perfectly centered */}
         <motion.div
@@ -49,22 +73,22 @@ const Envelope3D = ({ onOpen }) => {
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           style={{
             position: 'relative',
-            width: 'min(82vw, 320px)',
-            aspectRatio: '320 / 480',
+            width: 'min(85vw, 340px)',
+            aspectRatio: '340 / 500',
             transformStyle: 'preserve-3d',
           }}
         >
           {/* ── Shadow ── */}
           <motion.div
-            animate={phase === 'lift' ? { scaleX: 1.3, opacity: 0.06 } : { scaleX: 1, opacity: 0.18 }}
+            animate={phase === 'lift' ? { scaleX: 1.3, opacity: 0.08 } : { scaleX: 1, opacity: 0.25 }}
             transition={{ duration: 0.8 }}
             style={{
               position: 'absolute',
-              bottom: -20, left: '10%', right: '10%',
-              height: 28,
-              background: 'rgba(0,0,0,1)',
+              bottom: -25, left: '5%', right: '5%',
+              height: 32,
+              background: 'rgba(0,0,0,0.6)',
               borderRadius: '50%',
-              filter: 'blur(10px)',
+              filter: 'blur(12px)',
               zIndex: 0,
             }}
           />
@@ -72,105 +96,108 @@ const Envelope3D = ({ onOpen }) => {
           {/* ── Envelope body ── */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: '#8fa89a',
-            borderRadius: 6,
-            boxShadow: 'inset 0 0 50px rgba(0,0,0,0.08), 0 20px 50px rgba(0,0,0,0.2)',
+            background: 'linear-gradient(145deg, #2d1810, #1f0f0a)',
+            borderRadius: 12,
+            boxShadow: 'inset 0 0 60px rgba(244,63,94,0.1), 0 25px 50px rgba(0,0,0,0.4)',
             overflow: 'hidden',
             zIndex: 1,
+            border: '1px solid rgba(244,63,94,0.15)',
           }}>
 
-            {/* Embossed SVG — fills entire body */}
+            {/* Embossed SVG — floral patterns in rose gold */}
             <svg
               width="100%" height="100%"
-              viewBox="0 0 320 480"
+              viewBox="0 0 340 500"
               preserveAspectRatio="xMidYMid slice"
               style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none' }}
             >
               <defs>
                 <filter id="emb" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
-                  <feSpecularLighting in="blur" surfaceScale="4" specularConstant="0.8"
-                    specularExponent="20" result="light">
-                    <fePointLight x="80" y="60" z="120"/>
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="blur"/>
+                  <feSpecularLighting in="blur" surfaceScale="4.5" specularConstant="0.9"
+                    specularExponent="22" result="light">
+                    <fePointLight x="100" y="80" z="140"/>
                   </feSpecularLighting>
                   <feComposite in="light" in2="SourceAlpha" operator="in" result="s"/>
                   <feBlend in="SourceGraphic" in2="s" mode="screen"/>
                 </filter>
               </defs>
-              <g filter="url(#emb)" opacity="0.5">
-                {/* TL flower */}
-                <g transform="translate(22,22)" stroke="rgba(255,255,255,0.6)" strokeWidth="0.8" fill="none">
-                  <circle cx="13" cy="13" r="6"/>
-                  <path d="M13 7Q16 10 13 13Q10 10 13 7Z"/>
-                  <path d="M7 13Q10 16 13 13Q10 10 7 13Z"/>
-                  <path d="M19 13Q16 16 13 13Q16 10 19 13Z"/>
-                  <path d="M13 19Q16 16 13 13Q10 16 13 19Z"/>
-                  <circle cx="13" cy="13" r="2" fill="rgba(255,255,255,0.2)"/>
+              <g filter="url(#emb)" opacity="0.45">
+                {/* TL Rose Flower */}
+                <g transform="translate(25,25)" stroke="rgba(244,63,94,0.7)" strokeWidth="0.9" fill="none">
+                  <circle cx="15" cy="15" r="8"/>
+                  <path d="M15 7Q19 11 15 15Q11 11 15 7Z"/>
+                  <path d="M7 15Q11 19 15 15Q11 11 7 15Z"/>
+                  <path d="M23 15Q19 19 15 15Q19 11 23 15Z"/>
+                  <path d="M15 23Q19 19 15 15Q11 19 15 23Z"/>
+                  <circle cx="15" cy="15" r="3" fill="rgba(244,63,94,0.3)"/>
                 </g>
-                {/* TR tulip */}
-                <g transform="translate(284,20)" stroke="rgba(255,255,255,0.6)" strokeWidth="0.8" fill="none">
-                  <path d="M8 2C10 7 15 7 15 13C15 18 10 20 8 24C6 20 1 18 1 13C1 7 6 7 8 2Z"/>
-                  <line x1="8" y1="16" x2="8" y2="28"/>
-                  <path d="M4 22C6 20 8 24 8 24"/>
+                {/* TR Rose */}
+                <g transform="translate(298,22)" stroke="rgba(244,63,94,0.7)" strokeWidth="0.9" fill="none">
+                  <path d="M10 3C13 9 18 9 18 16C18 22 12 25 10 29C8 25 2 22 2 16C2 9 7 9 10 3Z"/>
+                  <line x1="10" y1="20" x2="10" y2="32"/>
+                  <path d="M5 27C7 24 10 28 10 28"/>
                 </g>
-                {/* BL daisy */}
-                <g transform="translate(20,432)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" fill="none">
-                  <circle cx="12" cy="12" r="4"/>
-                  <line x1="12" y1="3" x2="12" y2="8"/>
-                  <line x1="12" y1="16" x2="12" y2="21"/>
-                  <line x1="3" y1="12" x2="8" y2="12"/>
-                  <line x1="16" y1="12" x2="21" y2="12"/>
-                  <line x1="5.5" y1="5.5" x2="9" y2="9"/>
-                  <line x1="15" y1="15" x2="18.5" y2="18.5"/>
-                  <line x1="18.5" y1="5.5" x2="15" y2="9"/>
-                  <line x1="5.5" y1="18.5" x2="9" y2="15"/>
+                {/* BL Flower */}
+                <g transform="translate(22,452)" stroke="rgba(244,63,94,0.6)" strokeWidth="0.85" fill="none">
+                  <circle cx="14" cy="14" r="5"/>
+                  <line x1="14" y1="3" x2="14" y2="9"/>
+                  <line x1="14" y1="19" x2="14" y2="25"/>
+                  <line x1="3" y1="14" x2="9" y2="14"/>
+                  <line x1="19" y1="14" x2="25" y2="14"/>
+                  <line x1="6.5" y1="6.5" x2="10.5" y2="10.5"/>
+                  <line x1="17.5" y1="17.5" x2="21.5" y2="21.5"/>
+                  <line x1="21.5" y1="6.5" x2="17.5" y2="10.5"/>
+                  <line x1="6.5" y1="21.5" x2="10.5" y2="17.5"/>
                 </g>
-                {/* BR leaves */}
-                <g transform="translate(282,432)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" fill="none">
-                  <path d="M8 20C4 14 3 5 8 0C13 5 12 14 8 20Z"/>
-                  <path d="M8 20C2 17 0 9 4 3C7 8 8 15 8 20Z"/>
-                  <path d="M8 20C14 17 16 9 12 3C9 8 8 15 8 20Z"/>
+                {/* BR Leaves */}
+                <g transform="translate(300,455)" stroke="rgba(244,63,94,0.6)" strokeWidth="0.85" fill="none">
+                  <path d="M9 22C5 15 4 5 9 0C14 5 13 15 9 22Z"/>
+                  <path d="M9 22C2 18 0 9 4 3C8 8 9 17 9 22Z"/>
+                  <path d="M9 22C16 18 18 9 14 3C10 8 9 17 9 22Z"/>
                 </g>
-                {/* Left mid leaf */}
-                <g transform="translate(10,210)" stroke="rgba(255,255,255,0.35)" strokeWidth="0.7" fill="none">
-                  <path d="M7 0C13 5 14 14 7 20C0 14 1 5 7 0Z"/>
-                  <line x1="7" y1="0" x2="7" y2="20"/>
+                {/* Left decorative vine */}
+                <g transform="translate(12,220)" stroke="rgba(244,63,94,0.4)" strokeWidth="0.8" fill="none">
+                  <path d="M8 0C15 6 16 16 8 22C0 16 1 6 8 0Z"/>
+                  <line x1="8" y1="0" x2="8" y2="22"/>
                 </g>
-                {/* Right mid rose */}
-                <g transform="translate(300,200)" stroke="rgba(255,255,255,0.35)" strokeWidth="0.7" fill="none">
-                  <path d="M8 0C12 4 15 9 13 14C11 18 8 19 8 19C8 19 5 18 3 14C1 9 4 4 8 0Z"/>
-                  <path d="M5 8C7 6 10 6 12 8"/>
-                  <path d="M4 12C6 16 10 16 12 12"/>
+                {/* Right decorative flower */}
+                <g transform="translate(320,210)" stroke="rgba(244,63,94,0.4)" strokeWidth="0.8" fill="none">
+                  <path d="M9 0C14 5 17 11 15 16C13 21 9 22 9 22C9 22 5 21 3 16C1 11 4 5 9 0Z"/>
+                  <path d="M6 9C8 7 12 7 14 9"/>
+                  <path d="M5 14C7 18 11 18 13 14"/>
                 </g>
-                {/* Scatter dots */}
-                <circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.2)"/>
-                <circle cx="245" cy="90" r="1.5" fill="rgba(255,255,255,0.2)"/>
-                <circle cx="45" cy="340" r="1.5" fill="rgba(255,255,255,0.2)"/>
-                <circle cx="275" cy="360" r="1.5" fill="rgba(255,255,255,0.2)"/>
-                <circle cx="160" cy="440" r="1.5" fill="rgba(255,255,255,0.2)"/>
+                {/* Scatter dots - rose gold */}
+                <circle cx="80" cy="80" r="2" fill="rgba(244,63,94,0.25)"/>
+                <circle cx="260" cy="95" r="2" fill="rgba(244,63,94,0.25)"/>
+                <circle cx="50" cy="360" r="2" fill="rgba(244,63,94,0.25)"/>
+                <circle cx="290" cy="380" r="2" fill="rgba(244,63,94,0.25)"/>
+                <circle cx="170" cy="465" r="2" fill="rgba(244,63,94,0.25)"/>
+                <circle cx="120" cy="130" r="1.5" fill="rgba(244,63,94,0.2)"/>
+                <circle cx="220" cy="400" r="1.5" fill="rgba(244,63,94,0.2)"/>
               </g>
             </svg>
 
-            {/* Corner brackets */}
+            {/* Corner brackets - rose gold */}
             {[
-              { top: 14, left: 14, r: '0deg' },
-              { top: 14, right: 14, r: '90deg' },
-              { bottom: 14, left: 14, r: '270deg' },
-              { bottom: 14, right: 14, r: '180deg' },
+              { top: 18, left: 18, r: '0deg' },
+              { top: 18, right: 18, r: '90deg' },
+              { bottom: 18, left: 18, r: '270deg' },
+              { bottom: 18, right: 18, r: '180deg' },
             ].map((p, i) => (
               <div key={i} style={{
-                position: 'absolute', width: 30, height: 30,
-                zIndex: 3, opacity: 0.45, transform: `rotate(${p.r})`,
+                position: 'absolute', width: 35, height: 35,
+                zIndex: 3, opacity: 0.5, transform: `rotate(${p.r})`,
                 top: p.top, left: p.left, right: p.right, bottom: p.bottom,
               }}>
-                <svg viewBox="0 0 30 30" fill="none">
-                  <path d="M2 15 L2 2 L15 2" stroke="rgba(255,255,255,0.8)" strokeWidth="1"/>
+                <svg viewBox="0 0 35 35" fill="none">
+                  <path d="M3 18 L3 3 L18 3" stroke="rgba(244,63,94,0.85)" strokeWidth="1.2"/>
                 </svg>
               </div>
             ))}
           </div>
 
-          {/* ── FLAPS (over body) ── */}
+          {/* ── FLAPS (over body) with rose gradient ── */}
 
           {/* Left flap */}
           <motion.div
@@ -180,7 +207,8 @@ const Envelope3D = ({ onOpen }) => {
             style={{
               position: 'absolute', top: 0, left: 0, bottom: 0, width: '50%',
               clipPath: 'polygon(0 0, 100% 50%, 0 100%)',
-              background: '#7a9589', zIndex: 4,
+              background: 'linear-gradient(110deg, #3a2018, #2a1510)',
+              zIndex: 4,
               transformOrigin: 'left center',
             }}
           />
@@ -193,7 +221,8 @@ const Envelope3D = ({ onOpen }) => {
             style={{
               position: 'absolute', top: 0, right: 0, bottom: 0, width: '50%',
               clipPath: 'polygon(100% 0, 0 50%, 100% 100%)',
-              background: '#7a9589', zIndex: 4,
+              background: 'linear-gradient(250deg, #3a2018, #2a1510)',
+              zIndex: 4,
               transformOrigin: 'right center',
             }}
           />
@@ -206,7 +235,8 @@ const Envelope3D = ({ onOpen }) => {
             style={{
               position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%',
               clipPath: 'polygon(0 100%, 100% 100%, 50% 0%)',
-              background: '#80a092', zIndex: 5,
+              background: 'linear-gradient(0deg, #3d221a, #2e1810)',
+              zIndex: 5,
               transformOrigin: 'bottom center',
             }}
           />
@@ -219,12 +249,13 @@ const Envelope3D = ({ onOpen }) => {
             style={{
               position: 'absolute', top: 0, left: 0, right: 0, height: '50%',
               clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-              background: '#7d9b8d', zIndex: 6,
+              background: 'linear-gradient(180deg, #452a20, #352018)',
+              zIndex: 6,
               transformOrigin: 'top center',
             }}
           />
 
-          {/* ── WAX SEAL — perfectly centered FIXED ── */}
+          {/* ── WAX SEAL — Rose Gold theme ── */}
           <motion.div
             animate={
               phase === 'wax'
@@ -240,8 +271,8 @@ const Envelope3D = ({ onOpen }) => {
               left: '50%',
               transform: 'translate(-50%, -50%)',
               zIndex: 8,
-              width: 76,
-              height: 76,
+              width: 85,
+              height: 85,
               margin: 0,
               padding: 0,
             }}
@@ -250,24 +281,25 @@ const Envelope3D = ({ onOpen }) => {
               width: '100%',
               height: '100%',
               borderRadius: '50%',
-              background: 'radial-gradient(circle at 38% 35%, #d4c5a9, #b8a882 40%, #9e8f6a 75%, #7a6e50)',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.28), inset 0 1px 3px rgba(255,255,255,0.4)',
+              background: 'radial-gradient(circle at 35% 30%, #e8c49a, #c4a265 40%, #a8854a 70%, #8a6938)',
+              boxShadow: '0 6px 18px rgba(0,0,0,0.35), inset 0 2px 4px rgba(255,255,255,0.3)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              border: '1px solid rgba(255,215,0,0.3)',
             }}>
               <span style={{
                 fontFamily: "'Pinyon Script', cursive",
-                fontSize: 17,
-                color: '#5a4e35',
-                textShadow: '0 1px 1px rgba(255,255,255,0.3)',
-                letterSpacing: 1,
+                fontSize: 20,
+                color: '#4a3520',
+                textShadow: '0 1px 2px rgba(255,255,255,0.25)',
+                letterSpacing: 1.5,
                 userSelect: 'none',
               }}>P &amp; A</span>
             </div>
           </motion.div>
 
-          {/* ── TAGLINE — centered below seal FIXED ── */}
+          {/* ── TAGLINE — centered below seal ── */}
           <motion.p
             animate={phase !== 'idle' ? { opacity: 0, y: -8 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
@@ -279,19 +311,19 @@ const Envelope3D = ({ onOpen }) => {
               textAlign: 'center',
               zIndex: 7,
               fontFamily: "'Lato', sans-serif",
-              fontWeight: 300,
-              fontSize: 12,
-              color: 'rgba(255,255,255,0.72)',
+              fontWeight: 400,
+              fontSize: 13,
+              color: 'rgba(244,63,94,0.7)',
               lineHeight: 1.8,
-              letterSpacing: '0.5px',
+              letterSpacing: '1px',
               fontStyle: 'italic',
               margin: 0,
             }}
           >
-            Welcome to our<br />Wedding Invitation
+            Welcome to our<br />Wedding Celebration
           </motion.p>
 
-          {/* ── OPEN BUTTON — perfectly centered bottom FIXED ── */}
+          {/* ── OPEN BUTTON — perfectly centered bottom ── */}
           <AnimatePresence>
             {phase === 'idle' && (
               <motion.button
@@ -306,18 +338,25 @@ const Envelope3D = ({ onOpen }) => {
                   left: '50%',
                   transform: 'translateX(-50%)',
                   zIndex: 9,
-                  background: 'rgba(255,255,255,0.13)',
-                  border: '1px solid rgba(255,255,255,0.42)',
-                  color: '#fff',
+                  background: 'linear-gradient(135deg, rgba(244,63,94,0.2), rgba(190,18,60,0.15))',
+                  border: '1px solid rgba(244,63,94,0.5)',
+                  color: '#fda4af',
                   fontFamily: "'Lato', sans-serif",
-                  fontSize: 10,
-                  fontWeight: 400,
-                  letterSpacing: '2.5px',
-                  padding: '10px 30px',
-                  borderRadius: 2,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: '3px',
+                  padding: '12px 32px',
+                  borderRadius: 30,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
-                  backdropFilter: 'blur(4px)',
+                  backdropFilter: 'blur(8px)',
+                  transition: 'all 0.3s ease',
+                }}
+                whileHover={{
+                  background: 'linear-gradient(135deg, rgba(244,63,94,0.35), rgba(190,18,60,0.25))',
+                  borderColor: '#f43f5e',
+                  color: '#fff',
+                  letterSpacing: '4px',
                 }}
               >
                 OPEN INVITATION
@@ -329,42 +368,42 @@ const Envelope3D = ({ onOpen }) => {
           <AnimatePresence>
             {(phase === 'lift' || phase === 'done') && (
               <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: -24, opacity: 1 }}
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: -28, opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.7, ease: 'easeOut' }}
                 style={{
                   position: 'absolute',
                   top: '8%',
-                  left: '7%',
-                  right: '7%',
-                  bottom: '6%',
-                  background: 'linear-gradient(160deg, #fdf8f0, #faf0e6)',
-                  borderRadius: 6,
+                  left: '6%',
+                  right: '6%',
+                  bottom: '7%',
+                  background: 'linear-gradient(160deg, #fff8f0, #fdf0e6)',
+                  borderRadius: 10,
                   zIndex: 7,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.14)',
-                  padding: '20px 16px',
+                  boxShadow: '0 10px 35px rgba(0,0,0,0.2)',
+                  padding: '24px 20px',
                   textAlign: 'center',
                 }}
               >
                 <p style={{
                   fontFamily: "'Lato', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 11,
-                  color: '#a08060',
-                  letterSpacing: 2,
-                  marginBottom: 14,
+                  color: '#c47a5a',
+                  letterSpacing: 3,
+                  marginBottom: 16,
                   textTransform: 'uppercase',
                 }}>Together with their families</p>
 
                 <h1 style={{
                   fontFamily: "'Pinyon Script', cursive",
-                  fontSize: 44,
-                  color: '#6b5a3e',
+                  fontSize: 48,
+                  color: '#7a3a2a',
                   margin: 0,
                   lineHeight: 1.1,
                 }}>Priya</h1>
@@ -372,33 +411,33 @@ const Envelope3D = ({ onOpen }) => {
                 <p style={{
                   fontFamily: "'Lato', sans-serif",
                   fontWeight: 300,
-                  fontSize: 18,
-                  color: '#a08060',
-                  margin: '6px 0',
-                  letterSpacing: 4,
+                  fontSize: 20,
+                  color: '#c47a5a',
+                  margin: '8px 0',
+                  letterSpacing: 6,
                 }}>&amp;</p>
 
                 <h1 style={{
                   fontFamily: "'Pinyon Script', cursive",
-                  fontSize: 44,
-                  color: '#6b5a3e',
+                  fontSize: 48,
+                  color: '#7a3a2a',
                   margin: 0,
                   lineHeight: 1.1,
                 }}>Arjun</h1>
 
                 <div style={{
-                  width: 50,
-                  height: 1,
-                  background: 'rgba(160,128,96,0.35)',
-                  margin: '14px auto',
+                  width: 60,
+                  height: 1.5,
+                  background: 'linear-gradient(90deg, transparent, #c47a5a, #c47a5a, transparent)',
+                  margin: '18px auto',
                 }} />
 
                 <p style={{
                   fontFamily: "'Lato', sans-serif",
-                  fontWeight: 300,
+                  fontWeight: 400,
                   fontSize: 10,
-                  color: '#a08060',
-                  letterSpacing: 2,
+                  color: '#c47a5a',
+                  letterSpacing: 2.5,
                   lineHeight: 1.8,
                 }}>REQUEST THE PLEASURE<br />OF YOUR COMPANY</p>
               </motion.div>
@@ -407,6 +446,26 @@ const Envelope3D = ({ onOpen }) => {
 
         </motion.div>
       </div>
+
+      {/* Add keyframes for floating petals animation */}
+      <style>{`
+        @keyframes floatPetals {
+          0% {
+            transform: translateY(-10vh) translateX(0) rotate(0deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.4;
+          }
+          90% {
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateY(110vh) translateX(${Math.random() * 50 - 25}px) rotate(360deg);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </>
   )
 }
