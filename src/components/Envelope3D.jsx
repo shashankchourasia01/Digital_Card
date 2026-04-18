@@ -10,7 +10,8 @@ const Envelope3D = ({ onOpen }) => {
     setPhase('wax')
     setTimeout(() => setPhase('flaps'), 600)
     setTimeout(() => setPhase('lift'), 1800)
-    setTimeout(() => { setPhase('done'); onOpen?.() }, 2800)
+    // Letter card 3 second dikhega phir onOpen call hoga
+    setTimeout(() => { setPhase('done'); onOpen?.() }, 4800) // 1800 + 3000 = 4800
   }
 
   return (
@@ -364,7 +365,7 @@ const Envelope3D = ({ onOpen }) => {
             )}
           </AnimatePresence>
 
-          {/* ── LETTER CARD (peeks out after open) ── */}
+          {/* ── LETTER CARD (peeks out after open) - STAYS FOR 3 SECONDS ── */}
           <AnimatePresence>
             {(phase === 'lift' || phase === 'done') && (
               <motion.div
@@ -390,6 +391,17 @@ const Envelope3D = ({ onOpen }) => {
                   textAlign: 'center',
                 }}
               >
+                {/* Animated heart on top */}
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  style={{ marginBottom: 12 }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="#f43f5e">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </motion.div>
+
                 <p style={{
                   fontFamily: "'Lato', sans-serif",
                   fontWeight: 400,
@@ -440,6 +452,19 @@ const Envelope3D = ({ onOpen }) => {
                   letterSpacing: 2.5,
                   lineHeight: 1.8,
                 }}>REQUEST THE PLEASURE<br />OF YOUR COMPANY</p>
+
+                {/* 3 second countdown indicator - subtle */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: 120 }}
+                  transition={{ duration: 3, ease: "linear" }}
+                  style={{
+                    height: 2,
+                    background: 'linear-gradient(90deg, #f43f5e, #c47a5a)',
+                    borderRadius: 2,
+                    marginTop: 20,
+                  }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
@@ -461,7 +486,7 @@ const Envelope3D = ({ onOpen }) => {
             opacity: 0.4;
           }
           100% {
-            transform: translateY(110vh) translateX(${Math.random() * 50 - 25}px) rotate(360deg);
+            transform: translateY(110vh) translateX(30px) rotate(360deg);
             opacity: 0;
           }
         }
