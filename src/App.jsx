@@ -1,41 +1,50 @@
 // src/App.jsx
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import Envelope from './components/Envelope'
+import Envelope3D from './components/Envelope3D'
+import VideoSection from './components/VideoSection'
 import FloatingElements from './components/FloatingElements'
-import HeroSection from './components/HeroSection'
-import BrideGroom from './components/BrideGroom'
-import EventsTimeline from './components/EventsTimeline'
-import VenueSection from './components/VenueSection'
-import PhotoGallery from './components/PhotoGallery'
-import FamilyDetails from './components/FamilyDetails'
-import RSVPSection from './components/RSVPSection'
-import Navigation from './components/Navigation'
+import { HeroSection, CoupleSection, EventsSection, VenueSection, GallerySection, FamilySection, RSVPSection } from './components/Sections'
 import './index.css'
 
 function App() {
-  const [isInvitationOpen, setIsInvitationOpen] = useState(false)
+  const [step, setStep] = useState('envelope') // envelope -> video -> invitation
+  const [showInvitation, setShowInvitation] = useState(false)
+
+  const handleEnvelopeOpen = () => {
+    setStep('video')
+  }
+
+  const handleVideoComplete = () => {
+    setShowInvitation(true)
+    setStep('invitation')
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       
-      {/* Background Floating Flowers & Butterflies - Always visible */}
+      {/* Background Floating Elements - Always there */}
       <FloatingElements />
       
-      {/* Main Content */}
+      {/* Main Flow */}
       <AnimatePresence mode="wait">
-        {!isInvitationOpen ? (
-          <Envelope onOpen={() => setIsInvitationOpen(true)} />
-        ) : (
-          <div className="snap-container relative z-10">
-            <Navigation />
-            <div id="hero"><HeroSection /></div>
-            <div id="bride-groom"><BrideGroom /></div>
-            <div id="events"><EventsTimeline /></div>
-            <div id="venue"><VenueSection /></div>
-            <div id="gallery"><PhotoGallery /></div>
-            <div id="family"><FamilyDetails /></div>
-            <div id="rsvp"><RSVPSection /></div>
+        {step === 'envelope' && (
+          <Envelope3D key="envelope" onOpen={handleEnvelopeOpen} />
+        )}
+        
+        {step === 'video' && (
+          <VideoSection key="video" onComplete={handleVideoComplete} />
+        )}
+        
+        {step === 'invitation' && showInvitation && (
+          <div key="invitation" className="smooth-scroll">
+            <HeroSection />
+            <CoupleSection />
+            <EventsSection />
+            <VenueSection />
+            <GallerySection />
+            <FamilySection />
+            <RSVPSection />
           </div>
         )}
       </AnimatePresence>
